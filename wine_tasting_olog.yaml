@@ -1,0 +1,435 @@
+# Wine Tasting Visual Vocabulary - Categorical Structure (Olog)
+#
+# This olog (ontology log) specifies the categorical structure that underlies
+# the wine tasting visual vocabulary translation system.
+#
+# Following David Spivak's methodology: types (objects), aspects (attributes),
+# facts (commutative diagrams), and morphisms (structure-preserving maps).
+
+metadata:
+  title: "Wine Tasting Visual Vocabulary Olog"
+  version: "1.0.0"
+  author: "Dal"
+  description: "Categorical structure for translating oenological expertise into visual parameters"
+  foundation: "Court of Master Sommeliers & WSET methodology"
+
+# ==============================================================================
+# TYPES - Categorical Objects
+# ==============================================================================
+
+types:
+  
+  Wine:
+    description: "A wine with specific characteristics"
+    fundamental_aspects:
+      - varietal_character
+      - terroir_context
+      - winemaking_process
+      - temporal_state
+      - sensory_balance
+  
+  VarietalCharacter:
+    description: "Inherent characteristics from grape variety"
+    aspects:
+      - color_signature
+      - texture_profile
+      - structural_pattern
+      - aromatic_fingerprint
+  
+  TerroirContext:
+    description: "Environmental conditions affecting grape development"
+    aspects:
+      - climate_type
+      - regional_style
+      - soil_influence
+  
+  WinemakingProcess:
+    description: "Techniques applied during production"
+    aspects:
+      - oak_treatment
+      - fermentation_style
+      - aging_duration
+  
+  TemporalState:
+    description: "Evolution stage in wine's lifecycle"
+    aspects:
+      - age_category
+      - development_phase
+      - integration_level
+  
+  SensoryBalance:
+    description: "Equilibrium between fundamental taste/structure elements"
+    aspects:
+      - acidity_level
+      - tannin_structure
+      - sweetness_level
+      - alcohol_warmth
+      - body_weight
+  
+  VisualVocabulary:
+    description: "Complete set of visual parameters for image generation"
+    aspects:
+      - color_parameters
+      - opacity_clarity
+      - texture_surface
+      - compositional_structure
+      - atmospheric_qualities
+      - material_references
+      - color_palette
+      - balance_visualization
+      - finish_dimension
+
+# ==============================================================================
+# MORPHISMS - Structure-Preserving Maps
+# ==============================================================================
+
+morphisms:
+  
+  varietal_functor:
+    domain: VarietalCharacter
+    codomain: VisualVocabulary
+    description: "Base morphism mapping grape variety to visual characteristics"
+    preserves:
+      - identity: "Same varietal always maps to same base characteristics"
+      - composition: "Combining varietal attributes preserves structure"
+    examples:
+      - "Pinot Noir → {translucent, delicate, silky, nuanced}"
+      - "Cabernet Sauvignon → {opaque, bold, structured, monumental}"
+      - "Riesling → {crystalline, precise, electric, luminous}"
+  
+  climate_functor:
+    domain: TerroirContext
+    codomain: VisualVocabulary
+    description: "Environmental modifier transforming base characteristics"
+    preserves:
+      - monotonicity: "Warmer climate → monotonically increases saturation"
+      - tension: "Cooler climate → increases visual tension/angularity"
+    examples:
+      - "Cool → {angular, bright, tense, mineral}"
+      - "Warm → {soft, rich, relaxed, sun-drenched}"
+  
+  oak_functor:
+    domain: WinemakingProcess
+    codomain: VisualVocabulary
+    description: "Process overlay adding texture and material qualities"
+    preserves:
+      - additivity: "Oak characteristics overlay without destroying base"
+      - intensity: "More oak → monotonically increases warmth/richness"
+    examples:
+      - "None → {pure, transparent, clean}"
+      - "French Oak → {silky, refined, vanilla-spice}"
+      - "American Oak → {bold, creamy, coconut-caramel}"
+  
+  time_functor:
+    domain: TemporalState
+    codomain: VisualVocabulary
+    description: "Temporal transformation evolving all parameters"
+    preserves:
+      - directionality: "Time always moves forward in color evolution"
+      - integration: "Older wine → monotonically increases integration"
+      - clarity_degradation: "brilliant → bright → clear → dull"
+    examples:
+      - "Youthful → {vibrant, primary, taut, separate}"
+      - "Mature → {tertiary, silky, seamless, luminous}"
+      - "Past Prime → {fading, oxidized, thin, dull}"
+  
+  balance_morphism:
+    domain: SensoryBalance
+    codomain: VisualVocabulary
+    description: "Equilibrium relationships determining visual tension/weight"
+    preserves:
+      - tension_coherence: "High acid + high tannin → high visual tension"
+      - weight_coherence: "High body + high alcohol → heavy visual weight"
+      - reciprocity: "Balance shifts preserve relative relationships"
+    examples:
+      - "High Acidity → {angular edges, bright atmosphere}"
+      - "High Tannin → {structured texture, firm composition}"
+      - "High Body → {dense opacity, heavy weight}"
+
+# ==============================================================================
+# NATURAL TRANSFORMATIONS - Functor Relationships
+# ==============================================================================
+
+natural_transformations:
+  
+  regional_composition:
+    description: "Composing varietal + climate + style consistently"
+    functors:
+      - varietal_functor
+      - climate_functor
+      - oak_functor
+    naturality_square: |
+      For any varietal V and climate C:
+      climate_functor(varietal_functor(V)) ≅ regional_functor(V, C)
+      
+      Burgundy(Pinot) = Cool(Old_World(Pinot))
+      Napa(Cabernet) = Warm(New_World(Cabernet))
+    
+    coherence_constraint: "Regional identity preserved across transformations"
+  
+  evolution_morphism:
+    description: "Temporal transformation maintaining wine identity"
+    functors:
+      - time_functor
+      - varietal_functor
+    naturality_square: |
+      For any wine W at time t:
+      time_functor(varietal_functor(W)) preserves W's essential character
+      
+      Aged_Pinot still recognizably Pinot (translucent, delicate)
+      Aged_Cabernet still recognizably Cabernet (structured, bold)
+    
+    coherence_constraint: "Identity preserved through temporal evolution"
+  
+  balance_preservation:
+    description: "Balance relationships maintained across transformations"
+    functors:
+      - balance_morphism
+      - climate_functor
+      - time_functor
+    naturality_square: |
+      For any wine W with balance B:
+      balance_morphism commutes with other functors
+      
+      Cool_Climate(High_Acid) → amplifies tension
+      Warm_Climate(High_Acid) → moderates tension
+      But relative balance preserved
+    
+    coherence_constraint: "Equilibrium relationships remain consistent"
+
+# ==============================================================================
+# COMMUTATIVE DIAGRAMS - Facts
+# ==============================================================================
+
+facts:
+  
+  color_evolution_diagram:
+    description: "Color must evolve consistently through time"
+    commutes: |
+      Youthful_Red → Developing_Red → Mature_Red → Past_Prime_Red
+           ↓              ↓               ↓               ↓
+         Purple         Garnet          Brick          Brown
+      
+      This diagram commutes: any path gives same result
+  
+  balance_tension_diagram:
+    description: "Balance components determine visual tension coherently"
+    commutes: |
+      High_Acidity ──→ Angular_Edges
+           ↓                ↓
+      High_Tannin  ──→ Structured_Texture
+           ↓                ↓
+      High_Tension ──→ Taut_Composition
+      
+      All paths lead to consistent high-tension visualization
+  
+  climate_saturation_diagram:
+    description: "Climate affects saturation monotonically"
+    commutes: |
+      Cool → Moderate → Warm → Hot
+       ↓       ↓         ↓      ↓
+      -0.15    0.0      +0.1   +0.2  (saturation adjustment)
+      
+      Monotonic increase preserves ordering
+  
+  terroir_composition_diagram:
+    description: "Varietal + Climate + Style composes uniquely"
+    commutes: |
+      Pinot_Noir × Cool_Climate × Old_World
+                    ↓
+             Burgundy_Red_Signature
+                    ↓
+      {translucent, angular, restrained, mineral, elegant}
+      
+      Any evaluation order gives same result
+
+# ==============================================================================
+# COHERENCE CONSTRAINTS - Categorical Laws
+# ==============================================================================
+
+coherence_constraints:
+  
+  functoriality:
+    description: "Functors must preserve composition"
+    laws:
+      - "F(id) = id: Identity morphism maps to identity"
+      - "F(g ∘ f) = F(g) ∘ F(f): Composition preserved"
+    validation:
+      - "varietal_functor(identity) preserves wine character"
+      - "time_functor(time_functor(W)) = time_functor²(W)"
+  
+  naturality:
+    description: "Natural transformations must commute"
+    laws:
+      - "For η: F → G and morphism f: A → B"
+      - "G(f) ∘ η_A = η_B ∘ F(f)"
+    validation:
+      - "Regional transformation commutes with varietal changes"
+      - "Evolution preserves balance relationships"
+  
+  balance_equilibrium:
+    description: "Balance components maintain reciprocal relationships"
+    laws:
+      - "High acid + Low tannin ≠ High acid + High tannin"
+      - "Visual tension = f(acid, tannin) where f is monotonic"
+      - "Visual weight = g(body, alcohol) where g is monotonic"
+    validation:
+      - "Same acidity level creates different tension with different tannin"
+      - "Balance shifts preserve relative proportions"
+  
+  temporal_irreversibility:
+    description: "Time functor is not invertible"
+    laws:
+      - "time_functor has no inverse"
+      - "Mature wine cannot become Youthful"
+      - "Color evolution is directional"
+    validation:
+      - "No morphism maps Brick → Purple"
+      - "Integration only increases, never decreases"
+  
+  finish_depth_correlation:
+    description: "Finish length must correlate with atmospheric depth"
+    laws:
+      - "Short finish → Shallow atmosphere"
+      - "Long finish → Deep atmosphere"
+      - "Monotonic relationship preserved"
+    validation:
+      - "finish_length ∝ atmospheric_depth"
+      - "Very long finish always has vast/infinite depth"
+
+# ==============================================================================
+# INTENTIONALITY - Why These Mappings Work
+# ==============================================================================
+
+intentionality:
+  
+  synesthetic_grounding:
+    principle: "Wine vocabulary is inherently synesthetic"
+    examples:
+      - "'Silky' texture naturally suggests visual smoothness"
+      - "'Grippy' tannins naturally suggest rough surface"
+      - "'Angular' acidity naturally suggests sharp edges"
+    foundation: "Embodied cognition - sensory metaphors are universal"
+  
+  physical_correspondence:
+    principle: "Some mappings are physically real"
+    examples:
+      - "Color evolution purple→brick→brown is literal"
+      - "Opacity from tannins is measurable"
+      - "Clarity degradation with age is observable"
+    foundation: "Direct perceptual truth"
+  
+  structural_analogy:
+    principle: "Balance relationships are compositional"
+    examples:
+      - "Tension/relaxation in taste maps to visual composition"
+      - "Weight/lightness maps to opacity/transparency"
+      - "Integration maps to coherence/separation"
+    foundation: "Isomorphic relational structure"
+  
+  expert_consensus:
+    principle: "Systematic evaluation frameworks exist"
+    examples:
+      - "Court of Master Sommeliers standardized grid"
+      - "WSET deductive tasting methodology"
+      - "UC Davis aroma wheel"
+    foundation: "Inter-subjective agreement among experts"
+  
+  temporal_phenomenology:
+    principle: "Finish length is experiential time"
+    examples:
+      - "Short finish = brief sensory event"
+      - "Long finish = extended sensory persistence"
+      - "Maps to visual fade/decay pattern"
+    foundation: "Temporal experience structure"
+
+# ==============================================================================
+# DOMAIN COMPATIBILITY - Cross-Domain Composition
+# ==============================================================================
+
+domain_compatibility:
+  
+  compatible_domains:
+    - name: "Cocktail Aesthetics"
+      reason: "Shared liquid/color/clarity vocabulary"
+      example: "Wine opacity ∘ Cocktail clarity → Crystal/Cloudy"
+    
+    - name: "Pottery Glazing"
+      reason: "Material finish and patina concepts"
+      example: "Aged wine patina ∘ Glaze surface → Crackle/Matte"
+    
+    - name: "Japanese Gardens"
+      reason: "Temporal evolution and seasonal concepts"
+      example: "Wine aging ∘ Garden seasons → Fresh/Mature"
+  
+  incompatible_domains:
+    - name: "Jazz Improvisation"
+      reason: "Temporal structure conflicts (linear vs cyclical)"
+      explanation: "Wine evolution is irreversible; jazz is recursive"
+    
+    - name: "Square Dance"
+      reason: "Geometric patterns don't map to liquid qualities"
+      explanation: "Discrete positions vs continuous gradations"
+
+# ==============================================================================
+# EXTENSIONS - Future Functors
+# ==============================================================================
+
+extensions:
+  
+  food_pairing_functor:
+    description: "Map wine × food → unified visual vocabulary"
+    structure: |
+      Wine × Food → Pairing
+      Pairing → Visual_Harmony
+      
+      e.g., Pinot × Duck = {rich, earthy, unified}
+  
+  vintage_variation_functor:
+    description: "Account for year-to-year terroir differences"
+    structure: |
+      Wine × Vintage_Year → Climate_Variation
+      Climate_Variation → Visual_Parameters
+      
+      e.g., 2003 Heat Wave → darker, riper, jammy
+  
+  winemaker_style_functor:
+    description: "Individual winemaker decisions as morphism"
+    structure: |
+      Base_Wine × Winemaker_Philosophy → Stylistic_Variation
+      
+      e.g., Burgundy × Minimalist → pure, unadorned
+
+# ==============================================================================
+# VALIDATION PRINCIPLES
+# ==============================================================================
+
+validation:
+  
+  expert_review:
+    method: "Sommeliers validate visual vocabulary accuracy"
+    criteria:
+      - "Does the visual description capture wine character?"
+      - "Would you recognize the wine from the image?"
+      - "Are balance relationships preserved?"
+  
+  reproducibility:
+    method: "Same parameters always generate same vocabulary"
+    criteria:
+      - "Deterministic transformation functions"
+      - "No hidden state or randomness"
+      - "Mathematical proof of morphism preservation"
+  
+  compositional_coherence:
+    method: "Verify commutative diagrams"
+    criteria:
+      - "All paths in diagram yield same result"
+      - "Natural transformations commute"
+      - "Functors preserve structure"
+  
+  sensory_validation:
+    method: "Test if images match wine experience"
+    criteria:
+      - "Does high-acid wine generate angular visuals?"
+      - "Does aged wine show appropriate patina?"
+      - "Does finish length correlate with depth?"
